@@ -8,36 +8,40 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var color: String = "Pink"
-    
+    @EnvironmentObject var vibes: Vibes
+
     var body: some View {
         ZStack {
             Color("Background").ignoresSafeArea()
             VStack {
-                Logo(color: color)
+                LogoView()
                     .padding()
                 Spacer()
-                Vibe(color: color)
+                VibeView()
                 Spacer()
-                NewVibe(color: color)
+                NewVibeButton()
                 Spacer()
-                
+    
             }
-            
         }
     }
+    
+
 }
 
-struct Logo: View {
+struct LogoView: View {
+    @EnvironmentObject var vibes: Vibes
+
+    
     @State var panBlue: CGFloat = 5
-    let color: String
+    
     var body: some View {
         Text("G O O D\nV I B E S")
             .font(.system(size: 80)).bold()
             .foregroundColor(Color("Background"))
-            .shadow(color: Color("\(color)1"), radius: 0, x: panBlue, y: 0)
-            .shadow(color: Color("\(color)2"), radius: 0, x: panBlue, y: 0)
-            .shadow(color: Color("\(color)3"), radius: 0, x: panBlue, y: 0)
+            .shadow(color: Color("\(vibes.color)1"), radius: 0, x: panBlue, y: 0)
+            .shadow(color: Color("\(vibes.color)2"), radius: 0, x: panBlue, y: 0)
+            .shadow(color: Color("\(vibes.color)3"), radius: 0, x: panBlue, y: 0)
             .onAppear { panBlue = -5}
             .animation(
                 .easeInOut(duration: 0.5)
@@ -45,32 +49,36 @@ struct Logo: View {
                 value: panBlue
             )
     }
+    
+
 }
 
-struct Vibe: View {
-    var color: String
-    var body: some View {
+struct VibeView: View {
+    @EnvironmentObject var vibes: Vibes
+
+        var body: some View {
         ZStack {
             Rectangle()
       
                 .foregroundColor(Color("Gray"))
-                .shadow(color: Color("\(color)1"), radius: 0, x: 5, y: 5)
-                .shadow(color: Color("\(color)2"), radius: 0, x: 5, y: 5)
-                .shadow(color: Color("\(color)3"), radius: 0, x: 5, y: 5)
+                .rotation3DEffect(vibes.flip, axis: (x: 0, y: 1, z: 0))
+                .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 5, y: 5)
+                .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 5, y: 5)
+                .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 5, y: 5)
                 .padding()
             
             VStack {
-                Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus lacinia lacus ante, sit amet sagittis odio lacinia a. Donec aliquam urna eget lectus vulputate, non dictum elit sagittis.")
+                Text(vibes.vibe["Message"] ?? "No Vibes")
                     .foregroundColor(.white)
                     .padding()
                 HStack {
                     Spacer()
-                    Text("by Anon")
+                    Text("by \(vibes.vibe["Name"] ?? ":(")")
                         .foregroundColor(.white)
                         .padding(.horizontal)
-                    
                 }
             }
+            .rotation3DEffect(vibes.flip*2, axis: (x: 1, y: 0, z: 0))
             .padding()
             
         }
@@ -80,21 +88,20 @@ struct Vibe: View {
     }
 }
 
-struct NewVibe: View {
-    var color: String
+struct NewVibeButton: View {
+    @EnvironmentObject var vibes: Vibes
     
     var body: some View {
         Button(action: {
-            //newvibe
-            
+            vibes.getVibe()
         }, label: {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color("Gray"))
-                    .shadow(color: Color("\(color)1"), radius: 0, x: 2, y: 2)
-                    .shadow(color: Color("\(color)2"), radius: 0, x: 2, y: 2)
-                    .shadow(color: Color("\(color)3"), radius: 0, x: 2, y: 2)
-                Text("V I B E")
+                    .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 2, y: 2)
+                    .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 2, y: 2)
+                    .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 2, y: 2)
+                Text("N E W  V I B E")
                     .foregroundColor(.white)
                     .bold()
             }
@@ -103,6 +110,8 @@ struct NewVibe: View {
             
         })
     }
+    
+
 }
 
 struct ContentView_Previews: PreviewProvider {
