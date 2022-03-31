@@ -19,34 +19,44 @@ struct ContentView: View {
                 Spacer()
                 VibeView()
                 Spacer()
-                NewVibeButton()
+                
+                Button(action: {
+                    vibes.getVibe()
+                }, label: {
+                    VibeButton(text: "G E T  A  V I B E")
+                })
+                
+                Button(action: {
+                    vibes.getVibe()
+                }, label: {
+                    VibeButton(text: "S E N D  A  V I B E")
+                })
+
                 Spacer()
     
             }
         }
     }
-    
-
 }
 
 struct LogoView: View {
     @EnvironmentObject var vibes: Vibes
 
     
-    @State var panBlue: CGFloat = 5
+    @State var pan: CGFloat = 5
     
     var body: some View {
         Text("G O O D\nV I B E S")
             .font(.system(size: 80)).bold()
             .foregroundColor(Color("Background"))
-            .shadow(color: Color("\(vibes.color)1"), radius: 0, x: panBlue, y: 0)
-            .shadow(color: Color("\(vibes.color)2"), radius: 0, x: panBlue, y: 0)
-            .shadow(color: Color("\(vibes.color)3"), radius: 0, x: panBlue, y: 0)
-            .onAppear { panBlue = -5}
+            .shadow(color: Color("\(vibes.color)1"), radius: 0, x: vibes.panX, y: vibes.panY)
+            .shadow(color: Color("\(vibes.color)2"), radius: 0, x: vibes.panX, y: vibes.panY)
+            .shadow(color: Color("\(vibes.color)3"), radius: 0, x: vibes.panX, y: vibes.panY)
+            .onAppear { vibes.panX = -5}
             .animation(
                 .easeInOut(duration: 0.5)
                 .repeatForever(autoreverses: true),
-                value: panBlue
+                value: vibes.panX
             )
     }
     
@@ -78,7 +88,7 @@ struct VibeView: View {
                         .padding(.horizontal)
                 }
             }
-            .rotation3DEffect(vibes.flip*2, axis: (x: 1, y: 0, z: 0))
+            .rotation3DEffect(vibes.flip*2, axis: (x: 0, y: 1, z: 0))
             .padding()
             
         }
@@ -88,30 +98,24 @@ struct VibeView: View {
     }
 }
 
-struct NewVibeButton: View {
+struct VibeButton: View {
     @EnvironmentObject var vibes: Vibes
+    var text: String
     
     var body: some View {
-        Button(action: {
-            vibes.getVibe()
-        }, label: {
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .foregroundColor(Color("Gray"))
-                    .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 2, y: 2)
-                    .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 2, y: 2)
-                    .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 2, y: 2)
-                Text("N E W  V I B E")
-                    .foregroundColor(.white)
-                    .bold()
-            }
-            .frame(width: 200, height: 50)
-
-            
-        })
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(Color("Gray"))
+                .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 2, y: 2)
+                .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 2, y: 2)
+                .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 2, y: 2)
+            Text(text)
+                .foregroundColor(.white)
+                .bold()
+        }
+        .frame(width: 200, height: 50)
+        
     }
-    
-
 }
 
 struct ContentView_Previews: PreviewProvider {
