@@ -39,84 +39,67 @@ struct ContentView: View {
     }
 }
 
-struct LogoView: View {
-    @EnvironmentObject var vibes: Vibes
 
-    
-    @State var pan: CGFloat = 5
-    
-    var body: some View {
-        Text("G O O D\nV I B E S")
-            .font(.system(size: 80)).bold()
-            .foregroundColor(Color("Background"))
-            .shadow(color: Color("\(vibes.color)1"), radius: 0, x: vibes.panX, y: vibes.panY)
-            .shadow(color: Color("\(vibes.color)2"), radius: 0, x: vibes.panX, y: vibes.panY)
-            .shadow(color: Color("\(vibes.color)3"), radius: 0, x: vibes.panX, y: vibes.panY)
-            .onAppear { vibes.panX = -5}
-            .animation(
-                .easeInOut(duration: 0.5)
-                .repeatForever(autoreverses: true),
-                value: vibes.panX
-            )
-    }
-    
 
-}
 
-struct VibeView: View {
-    @EnvironmentObject var vibes: Vibes
 
-        var body: some View {
-        ZStack {
-            Rectangle()
-      
-                .foregroundColor(Color("Gray"))
-                .rotation3DEffect(vibes.flip, axis: (x: 0, y: 1, z: 0))
-                .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 5, y: 5)
-                .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 5, y: 5)
-                .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 5, y: 5)
-                .padding()
-            
-            VStack {
-                Text(vibes.vibe["Message"] ?? "No Vibes")
-                    .foregroundColor(.white)
-                    .padding()
-                HStack {
-                    Spacer()
-                    Text("by \(vibes.vibe["Name"] ?? ":(")")
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                }
-            }
-            .rotation3DEffect(vibes.flip*2, axis: (x: 0, y: 1, z: 0))
-            .padding()
-            
-        }
-        .padding()
-        .frame(maxWidth: .infinity)
-        .frame(height: 300)
-    }
-}
 
-struct VibeButton: View {
-    @EnvironmentObject var vibes: Vibes
-    var text: String
-    
-    var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 10)
-                .foregroundColor(Color("Gray"))
-                .shadow(color: Color("\(vibes.color)1"), radius: 0, x: 2, y: 2)
-                .shadow(color: Color("\(vibes.color)2"), radius: 0, x: 2, y: 2)
-                .shadow(color: Color("\(vibes.color)3"), radius: 0, x: 2, y: 2)
-            Text(text)
-                .foregroundColor(.white)
-                .bold()
-        }
-        .frame(width: 200, height: 50)
-        
-    }
-}
+//struct CustomButton: UIViewRepresentable {
+//    func makeUIView(context: Context) -> UIButton {
+//        let button = UIButton()
+//
+//
+//        return button
+//    }
+//
+//    func updateUIView(_ uiView: UIButton, context: Context) {
+//
+//    }
+//
+//    typealias UIViewType = UIButton
+//
+//
+//}
+
+//struct CustomText: UIViewRepresentable {
+//    var text: String
+//    func makeUIView(context: Context) -> UILabel {
+//        let label = UILabel()
+//        label.text = text
+//        label.textAlignment = .center
+//        label.font = UIFont.boldSystemFont(ofSize: 15)
+//
+//        let storyboard = UIStoryboard(name: "Storyboard", bundle: .main)
+//
+//        let viewcontroller = storyboard.instantiateViewController(identifier: "vc")
+//        let action = UIAction { _ in
+//            if let sheet = viewcontroller.sheetPresentationController {
+//                sheet.detents = [.medium(), .large()]
+//            }
+//
+//
+//            label.window?.rootViewController?.present(viewcontroller, animated: true)
+//
+//        }
+//
+//
+//        return label
+//    }
+//
+//    func updateUIView(_ uiView: UILabel, context: Context) {
+//    }
+//
+//
+//    typealias UIViewType = UILabel
+//
+//    func sendVibe() {
+//
+//
+//
+//    }
+//
+//}
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

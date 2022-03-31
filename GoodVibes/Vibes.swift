@@ -15,14 +15,21 @@ class Vibes: ObservableObject {
     @Published var panX: CGFloat = 5
     @Published var panY: CGFloat = 0
     
-    @Published var vibe = ["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anon"]
-
-
+    @Published var vibe = ["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anonymous"]
+    
+    var vibes = [["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anonymous"],["Message": "Ut tempus felis nisi. Etiam tortor nisl, rhoncus in rutrum vitae, semper condimentum ligula. Donec eget dapibus erat. Nam bibendum et arcu sodales venenatis. Aliquam vel risus urna. Suspendisse potenti. Phasellus a facilisis justo. Maecenas eu orci dui.", "Name": "Anon"]]
+    
     init() {
 
     }
     
     func getVibe() {
+        
+        var newVibe = vibes[Int.random(in: 0..<vibes.count)]
+        while newVibe["Name"] == vibe["Name"] {
+            newVibe = vibes[Int.random(in: 0..<vibes.count)]
+        }
+        vibe = newVibe
         
         color = color == "Pink" ? "Blue" : "Pink"
         
@@ -34,18 +41,6 @@ class Vibes: ObservableObject {
     }
     
     func sendVibe() {
-        
-//        let viewcontroller = storyboard.instantiateViewController(identifier: "vc")
-//        let action = UIAction { _ in
-//            if let sheet = viewcontroller.sheetPresentationController {
-//                sheet.detents = [.medium(), .large()]
-//            }
-//            
-//
-//            button.window?.rootViewController?.present(viewcontroller, animated: true)
-//            
-//            isShowing.toggle()
-//        }
-        
+    
     }
 }

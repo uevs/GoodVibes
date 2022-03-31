@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct GoodVibesApp: App {
     @StateObject var vibes = Vibes()
+    
     var body: some Scene {
         WindowGroup {
             ContentView().preferredColorScheme(.dark)
