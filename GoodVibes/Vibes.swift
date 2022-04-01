@@ -16,6 +16,9 @@ class Vibes: ObservableObject {
     @Published var flip: Angle = Angle(degrees: 0.0)
     @Published var panX: CGFloat = 5
     @Published var panY: CGFloat = 0
+    var previousState: (CGFloat, CGFloat) = (5,5)
+    
+
     
     @Published var vibe = ["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anonymous"]
     
@@ -27,6 +30,7 @@ class Vibes: ObservableObject {
     
     func getVibe() {
         panX.negate()
+        previousState.0 = panX
         
         var newVibe = vibes[Int.random(in: 0..<vibes.count)]
         while newVibe["Name"] == vibe["Name"] {
@@ -47,16 +51,23 @@ class Vibes: ObservableObject {
     }
     
     func reset() {
-        panY = 0
+        color = color == "Pink" ? "Blue" : "Pink"
         sending = false
-        panX = 5
+        withAnimation {
+            panY = 0
+            previousState.0.negate()
+            panX = previousState.0
+        }
+        stopAnimation = false
 
     }
     
     func sendVibe() {
         sending = true
+        stopAnimation = true
         panX = 0
-        panY = 5
+        previousState.1.negate()
+        panY = previousState.1
         color = color == "Pink" ? "Blue" : "Pink"
     }
 }

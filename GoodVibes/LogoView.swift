@@ -23,13 +23,8 @@ struct LogoView: View {
             .onAppear { vibes.panX.negate() }
             .animation(
                 .easeInOut(duration: 0.5)
-                .repeatCount(vibes.sending ? 0 : 3, autoreverses: true),
-                value: vibes.sending ? nil : vibes.panX
-            )
-            .animation(
-                .easeInOut(duration: 0.5)
-                .repeatCount(vibes.sending ? 3 : 0, autoreverses: true),
-                value: vibes.sending ? vibes.panY : nil
+                .repeatCount(vibes.stopAnimation ? 0 : 3, autoreverses: true),
+                value: vibes.stopAnimation ? nil : vibes.panX
             )
     }
 
