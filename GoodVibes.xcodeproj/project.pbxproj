@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6F4AC7EF27F72F9A00D572AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AC7EE27F72F9A00D572AB /* ViewController.swift */; };
+		6F4AC7F127F7415100D572AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F4AC7F027F7415100D572AB /* ViewController.swift */; };
 		6F82721527F5A395005F5BCC /* GoodVibesApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82721427F5A395005F5BCC /* GoodVibesApp.swift */; };
 		6F82721727F5A395005F5BCC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82721627F5A395005F5BCC /* ContentView.swift */; };
 		6F82721927F5A397005F5BCC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6F82721827F5A397005F5BCC /* Assets.xcassets */; };
@@ -20,7 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6F4AC7EE27F72F9A00D572AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		6F4AC7F027F7415100D572AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6F82721127F5A395005F5BCC /* GoodVibes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoodVibes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F82721427F5A395005F5BCC /* GoodVibesApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoodVibesApp.swift; sourceTree = "<group>"; };
 		6F82721627F5A395005F5BCC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -70,7 +70,7 @@
 				6FE4849027F636BE008B5E0C /* LogoView.swift */,
 				6F82722427F5D345005F5BCC /* Vibes.swift */,
 				6FE4848E27F6090B008B5E0C /* Storyboard.storyboard */,
-				6F4AC7EE27F72F9A00D572AB /* ViewController.swift */,
+				6F4AC7F027F7415100D572AB /* ViewController.swift */,
 				6F82721827F5A397005F5BCC /* Assets.xcassets */,
 				6F82721A27F5A397005F5BCC /* Preview Content */,
 			);
@@ -160,7 +160,7 @@
 				6FE4849527F63874008B5E0C /* VibeButton.swift in Sources */,
 				6FE4849127F636BE008B5E0C /* LogoView.swift in Sources */,
 				6FE4849327F636FE008B5E0C /* VibeView.swift in Sources */,
-				6F4AC7EF27F72F9A00D572AB /* ViewController.swift in Sources */,
+				6F4AC7F127F7415100D572AB /* ViewController.swift in Sources */,
 				6F82721727F5A395005F5BCC /* ContentView.swift in Sources */,
 				6F82721527F5A395005F5BCC /* GoodVibesApp.swift in Sources */,
 			);

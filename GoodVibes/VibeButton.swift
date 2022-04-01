@@ -54,7 +54,9 @@ struct ModalButton: UIViewRepresentable {
     func updateUIView(_ uiView: UIButton, context: Context) {
 
         let storyboard = UIStoryboard.init(name: "Storyboard", bundle: .main)
-        let presentedViewController = storyboard.instantiateViewController(withIdentifier: "vc") //as! ViewController
+        let presentedViewController = storyboard.instantiateViewController(withIdentifier: "vc") as! ViewController
+        
+        presentedViewController.changeColor(color: vibes.color)
         
         presentedViewController.presentationController?.delegate = context.coordinator
         
