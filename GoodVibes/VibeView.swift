@@ -32,7 +32,6 @@ struct VibeView: View {
                         .padding(.horizontal)
                 }
             }
-//            .rotation3DEffect(vibes.flip*2, axis: (x: 0, y: 1, z: 0))
             .padding()
             
         }
@@ -42,8 +41,4 @@ struct VibeView: View {
     }
 }
 
-//struct VibeView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VibeView()
-//    }
-//}
+

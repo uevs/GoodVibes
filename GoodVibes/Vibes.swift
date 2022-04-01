@@ -12,6 +12,7 @@ import SwiftUI
 class Vibes: ObservableObject {
     @Published var sending: Bool = false
     @Published var stopAnimation: Bool = false
+    @Published var hideVibe: Bool = false
     @Published var color: String = "Pink"
     @Published var flip: Angle = Angle(degrees: 0.0)
     @Published var panX: CGFloat = 5
@@ -57,6 +58,7 @@ class Vibes: ObservableObject {
             panY = 0
             previousState.0.negate()
             panX = previousState.0
+            hideVibe = false
         }
         stopAnimation = false
 
@@ -65,6 +67,7 @@ class Vibes: ObservableObject {
     func sendVibe() {
         sending = true
         stopAnimation = true
+        hideVibe = true
         panX = 0
         previousState.1.negate()
         panY = previousState.1

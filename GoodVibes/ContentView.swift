@@ -17,7 +17,7 @@ struct ContentView: View {
                 LogoView()
                     .padding()
                 Spacer()
-                if !vibes.sending {
+                if !vibes.hideVibe {
                     VibeView()
                     
                 }
@@ -34,11 +34,6 @@ struct ContentView: View {
                     ModalButton(text: "S E N D  A  V I B E")
                         .frame(width: 200, height: 50)
                 }
-//                Button(action: {
-//                    vibes.sendVibe()
-//                }, label: {
-//                    VibeButton(text: "S E N D  A  V I B E")
-//                })
 
                 Spacer()
     

@@ -84,19 +84,10 @@ struct ModalButton: UIViewRepresentable {
         
         func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
             vibes.reset()
-            print("The presentation controller was dismissed because the user tapped outside or dragged it down")
+
         }
         
         
     }
 
 }
-
-
-
-//
-//struct Vibebutton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        VibeButton(text: "Test")
-//    }
-//}
