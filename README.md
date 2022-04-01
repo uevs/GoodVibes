@@ -17,5 +17,7 @@
 
 A SwiftUI frontend for my Vapor project [VaporVibes](https://github.com/uevs/VaporVibes).
 
+Avilable for download [on TestFlight](https://testflight.apple.com/join/oDaC4Crc).
+
 ## Description
 This project allows Academy hackers to send good vibes to each other with an iOS app. It can be connected with my VaporVibes webapp.
