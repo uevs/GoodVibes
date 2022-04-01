@@ -26,6 +26,72 @@ struct VibeButton: View {
         
     }
 }
+
+struct ModalButton: UIViewRepresentable {
+    @EnvironmentObject var vibes: Vibes
+    
+    typealias UIViewType = UIButton
+
+    var text: String
+    
+    func makeUIView(context: Context) -> UIButton {
+        
+        let button = UIButton(type: .custom)    
+        button.setTitle(text, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17)
+
+        let action = UIAction { _ in
+            vibes.sendVibe()
+        }
+
+        button.addAction(action, for: .touchUpInside)
+                
+        button.tintColor = .label
+        
+        return button
+    }
+    
+    func updateUIView(_ uiView: UIButton, context: Context) {
+
+        let storyboard = UIStoryboard.init(name: "Storyboard", bundle: .main)
+        let presentedViewController = storyboard.instantiateViewController(withIdentifier: "vc") //as! ViewController
+        
+        presentedViewController.presentationController?.delegate = context.coordinator
+        
+        let sheet = presentedViewController.presentationController as! UISheetPresentationController
+        sheet.prefersGrabberVisible = true
+        sheet.detents = [.medium()]
+        
+        if vibes.sending {
+            uiView.window?.rootViewController?.present(presentedViewController, animated: true)
+        } else {
+            uiView.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(vibes: vibes)
+    }
+    
+    class Coordinator: NSObject, UISheetPresentationControllerDelegate {
+        var vibes: Vibes
+        
+        init(vibes: Vibes, onDismiss: (() -> Void)? = nil) {
+            self.vibes = vibes
+        }
+        
+        func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
+            vibes.reset()
+            print("The presentation controller was dismissed because the user tapped outside or dragged it down")
+        }
+        
+        
+    }
+
+}
+
+
+
 //
 //struct Vibebutton_Previews: PreviewProvider {
 //    static var previews: some View {

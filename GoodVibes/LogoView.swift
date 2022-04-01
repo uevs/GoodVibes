@@ -20,13 +20,19 @@ struct LogoView: View {
             .shadow(color: Color("\(vibes.color)1"), radius: 0, x: vibes.panX, y: vibes.panY)
             .shadow(color: Color("\(vibes.color)2"), radius: 0, x: vibes.panX, y: vibes.panY)
             .shadow(color: Color("\(vibes.color)3"), radius: 0, x: vibes.panX, y: vibes.panY)
-            .onAppear { vibes.panX = -5}
+            .onAppear { vibes.panX.negate() }
             .animation(
                 .easeInOut(duration: 0.5)
-                .repeatForever(autoreverses: true),
-                value: vibes.panX
+                .repeatCount(vibes.sending ? 0 : 3, autoreverses: true),
+                value: vibes.sending ? nil : vibes.panX
+            )
+            .animation(
+                .easeInOut(duration: 0.5)
+                .repeatCount(vibes.sending ? 3 : 0, autoreverses: true),
+                value: vibes.sending ? vibes.panY : nil
             )
     }
+
     
 
 }

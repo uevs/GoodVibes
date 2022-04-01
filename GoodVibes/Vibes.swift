@@ -10,6 +10,8 @@ import SwiftUI
 
 
 class Vibes: ObservableObject {
+    @Published var sending: Bool = false
+    @Published var stopAnimation: Bool = false
     @Published var color: String = "Pink"
     @Published var flip: Angle = Angle(degrees: 0.0)
     @Published var panX: CGFloat = 5
@@ -24,12 +26,16 @@ class Vibes: ObservableObject {
     }
     
     func getVibe() {
+        panX.negate()
         
         var newVibe = vibes[Int.random(in: 0..<vibes.count)]
         while newVibe["Name"] == vibe["Name"] {
             newVibe = vibes[Int.random(in: 0..<vibes.count)]
         }
-        vibe = newVibe
+        withAnimation {
+            vibe = newVibe
+            
+        }
         
         color = color == "Pink" ? "Blue" : "Pink"
         
@@ -40,7 +46,17 @@ class Vibes: ObservableObject {
         
     }
     
-    func sendVibe() {
+    func reset() {
+        panY = 0
+        sending = false
+        panX = 5
+
+    }
     
+    func sendVibe() {
+        sending = true
+        panX = 0
+        panY = 5
+        color = color == "Pink" ? "Blue" : "Pink"
     }
 }
