@@ -83,7 +83,7 @@ struct ModalButton: UIViewRepresentable {
         }
         
         func presentationControllerDidDismiss(_ presentationController: UIPresentationController) {
-            vibes.reset()
+            vibes.resetAnimations()
 
         }
         
