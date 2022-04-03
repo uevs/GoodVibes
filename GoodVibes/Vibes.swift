@@ -32,8 +32,8 @@ class Vibes: ObservableObject {
     var previousState: (CGFloat, CGFloat) = (5,5)
     
     // Data
-    var vibesDB: [Vibe] = [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore"), Vibe(id: UUID(), message: "You can't teach a new tricks to an old dog.", from: "J. Ventre")]
-    var currentVibe: Vibe = Vibe(id: UUID(), message: "You can't teach a new trick to an old dog.", from: "J. Ventre")
+    var vibesDB: [Vibe] = [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore"), Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")]
+    var currentVibe: Vibe = Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")
     
     
     init() {
@@ -97,9 +97,19 @@ class Vibes: ObservableObject {
     }
     
     func updateVibes() async {
+        print("Updating the Vibes")
         
+        if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
+            print("Last Update was \(lastUpdate), now is \(Date())")
+            
+            if let difference = Calendar.current.dateComponents([.minute], from: lastUpdate, to: Date()).minute, difference < 5 {
+                print("Only \(difference) minutes have been passing, not updating.")
+                return
+            }
+        }
+        print("Enough time has passed, continuing.")
+                
         //check interval here
-        print("called")
         let decoder = JSONDecoder()
         var urlComponents = URLComponents(string: "http://127.0.0.1")!
         urlComponents.port = 8080
@@ -112,6 +122,7 @@ class Vibes: ObservableObject {
             guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { print("Bad response"); return}
             
             UserDefaults.standard.set(data, forKey: "vibes")
+            UserDefaults.standard.set(Date(), forKey: "lastUpdate")
             
             if let vibes = try? decoder.decode([Vibe].self, from: data) {
                 vibesDB = vibes
