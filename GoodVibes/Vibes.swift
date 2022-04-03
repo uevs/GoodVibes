@@ -9,7 +9,22 @@ import Foundation
 import SwiftUI
 
 
+struct Vibe: Codable {
+    var id:  UUID
+    var message: String
+    var from: String
+}
+
+struct VibesDB: Codable {
+    var allVibes: [Vibe]
+}
+
+
 class Vibes: ObservableObject {
+
+    var vibesDB: [Vibe]
+    
+    
     @Published var sending: Bool = false
     @Published var stopAnimation: Bool = false
     @Published var hideVibe: Bool = false
@@ -19,24 +34,50 @@ class Vibes: ObservableObject {
     @Published var panY: CGFloat = 0
     var previousState: (CGFloat, CGFloat) = (5,5)
     
+    
+    
+    @Published var vibe: Vibe = Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore")
+        
 
     
-    @Published var vibe = ["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anonymous"]
-    
-    var vibes = [["Message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec finibus, nisi at vehicula dictum, nunc nunc sollicitudin orci, eget ullamcorper nibh purus id ipsum.", "Name": "Anonymous"],["Message": "Ut tempus felis nisi. Etiam tortor nisl, rhoncus in rutrum vitae, semper condimentum ligula. Donec eget dapibus erat. Nam bibendum et arcu sodales venenatis. Aliquam vel risus urna. Suspendisse potenti. Phasellus a facilisis justo. Maecenas eu orci dui.", "Name": "Anon"]]
-    
     init() {
+   
+        let decoder = JSONDecoder()
+        let encoder = JSONEncoder()
+        
+
+        
+        do {
+            if UserDefaults.standard.data(forKey: "vibes") == nil {
+                let defaultArray = try encoder.encode([Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore")])
+                UserDefaults.standard.set(defaultArray, forKey: "vibes")
+            }
+            
+            self.vibesDB = try decoder.decode([Vibe].self, from: UserDefaults.standard.data(forKey: "vibes")!)
+
+        } catch {
+            self.vibesDB = [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore")]
+            print(error)
+        }
+        
 
     }
     
-    func getVibe() {
+    func start() -> [Vibe] {
+        return [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore")]
+    }
+    
+    func getVibe() async {
         panX.negate()
         previousState.0 = panX
         
-        var newVibe = vibes[Int.random(in: 0..<vibes.count)]
-        while newVibe["Name"] == vibe["Name"] {
-            newVibe = vibes[Int.random(in: 0..<vibes.count)]
+        var newVibe = vibesDB[Int.random(in: 0..<vibesDB.count)]
+
+        
+        while newVibe.id == vibe.id {
+            newVibe = vibesDB[Int.random(in: 0..<vibesDB.count)]
         }
+        
         withAnimation {
             vibe = newVibe
             
@@ -48,8 +89,46 @@ class Vibes: ObservableObject {
             flip = flip == Angle(degrees: 0.0) ? Angle(degrees: 180.0) : Angle(degrees: 0.0)
             
         }
+        await updateVibes()
+        // check time
+        // update vibes
         
     }
+    
+    func updateVibes() async {
+        
+        let decoder = JSONDecoder()
+        var urlComponents = URLComponents(string: "http://127.0.0.1")!
+        
+        
+        urlComponents.port = 8080
+        urlComponents.path = "/vibes/all"
+        
+        do {
+            
+            let (data, response) = try await URLSession.shared.data(from: urlComponents.url!)
+            
+            guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else { print("Bad response"); return}
+            
+
+            if let vibes = try? decoder.decode([Vibe].self, from: data) {
+                print(vibes)
+                
+                UserDefaults.standard.set(data, forKey: "vibes")
+                vibesDB = vibes
+
+            } else {
+                print("can't decode")
+            }
+            
+        } catch {
+            print(error)
+        }
+        
+        
+        
+    }
+    
     
     func reset() {
         color = color == "Pink" ? "Blue" : "Pink"
@@ -61,7 +140,7 @@ class Vibes: ObservableObject {
             hideVibe = false
         }
         stopAnimation = false
-
+        
     }
     
     func sendVibe() {

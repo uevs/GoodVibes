@@ -24,7 +24,9 @@ struct ContentView: View {
                 Spacer()
                 
                 Button(action: {
-                    vibes.getVibe()
+                    Task {
+                        await vibes.getVibe()
+                    }
                 }, label: {
                     VibeButton(text: "G E T  A  V I B E")
                 })

@@ -22,12 +22,12 @@ struct VibeView: View {
                 .padding()
             
             VStack {
-                Text(vibes.vibe["Message"] ?? "No Vibes")
+                Text(vibes.vibe.message)
                     .foregroundColor(.white)
                     .padding()
                 HStack {
                     Spacer()
-                    Text("by \(vibes.vibe["Name"] ?? ":(")")
+                    Text("by \(vibes.vibe.from)")
                         .foregroundColor(.white)
                         .padding(.horizontal)
                 }
