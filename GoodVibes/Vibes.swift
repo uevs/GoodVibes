@@ -138,8 +138,8 @@ class Vibes: ObservableObject {
     
     }
     
-    func uploadVibe() async {
-        
+    func uploadVibe(_ contents: [String: String])  {
+        print(contents)
     }
     
 }

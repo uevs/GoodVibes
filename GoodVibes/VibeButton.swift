@@ -66,9 +66,25 @@ struct ModalButton: UIViewRepresentable {
         
         if vibes.sending {
             uiView.window?.rootViewController?.present(presentedViewController, animated: true)
+
+            send(presentedViewController: presentedViewController)
         } else {
             uiView.window?.rootViewController?.dismiss(animated: true, completion: nil)
         }
+    }
+    
+    func send(presentedViewController: ViewController) {
+        
+        var contents = ["message": "", "from": ""]
+        contents["message"] = presentedViewController.textView.text.description
+        contents["from"] = presentedViewController.textField.text?.description
+        
+        let action = UIAction { _ in
+            vibes.uploadVibe(contents)
+            vibes.sending = false
+            vibes.resetAnimations()
+        }
+        presentedViewController.sendButton.addAction(action, for: .touchUpInside)
     }
     
     func makeCoordinator() -> Coordinator {

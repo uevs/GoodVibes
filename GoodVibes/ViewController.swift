@@ -10,6 +10,10 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet var textField: UITextField!
+    @IBOutlet var textView: UITextView!
+    @IBOutlet var sendButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
