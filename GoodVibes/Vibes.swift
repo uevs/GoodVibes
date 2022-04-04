@@ -34,7 +34,7 @@ class Vibes: ObservableObject {
     // Data
     var vibesDB: [Vibe] = [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore"), Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")]
     var currentVibe: Vibe = Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")
-    
+    @Published var newVibe: [String: String] = ["message": "Placeholder", "from": "Placeholder"]
     
     init() {
    
@@ -138,8 +138,32 @@ class Vibes: ObservableObject {
     
     }
     
-    func uploadVibe(_ contents: [String: String])  {
-        print(contents)
+
+    
+    func uploadVibe() async {
+        print("Uploading a vibe")
+        print(newVibe)
+        let encoder = JSONEncoder()
+        var urlComponents = URLComponents(string: "http://127.0.0.1")!
+        urlComponents.port = 8080
+        urlComponents.path = "/vibes"
+        do {
+            let newVibe = try encoder.encode(newVibe)
+            var updateRequest = URLRequest(url: urlComponents.url!)
+            updateRequest.httpMethod = "POST"
+            updateRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            updateRequest.setValue("application/json", forHTTPHeaderField: "Accept")
+            updateRequest.httpBody = newVibe
+            
+            let (_, response) = try await URLSession.shared.data(for: updateRequest)
+            print(response)
+        } catch {
+            print(error)
+            return
+        }
     }
     
 }
+
+
+

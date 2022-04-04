@@ -42,6 +42,12 @@ struct ContentView: View {
     
             }
         }
+        .onChange(of: vibes.newVibe["message"], perform: { newValue in
+            Task  {
+                await vibes.uploadVibe()
+
+            }
+        })
         .onAppear {
             Task {
                 await vibes.updateVibes()

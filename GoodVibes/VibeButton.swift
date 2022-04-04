@@ -75,12 +75,14 @@ struct ModalButton: UIViewRepresentable {
     
     func send(presentedViewController: ViewController) {
         
-        var contents = ["message": "", "from": ""]
+        var contents = ["message": "Test", "from": "Test"]
         contents["message"] = presentedViewController.textView.text.description
         contents["from"] = presentedViewController.textField.text?.description
         
         let action = UIAction { _ in
-            vibes.uploadVibe(contents)
+            if contents != ["message": "", "from": ""] {
+                vibes.newVibe = contents
+            }
             vibes.sending = false
             vibes.resetAnimations()
         }
