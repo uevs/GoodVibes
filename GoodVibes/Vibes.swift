@@ -34,6 +34,7 @@ class Vibes: ObservableObject {
     // Data
     var vibesDB: [Vibe] = [Vibe(id: UUID(), message: "Heeeeeey", from: "Antonio D'Amore"), Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")]
     var currentVibe: Vibe = Vibe(id: UUID(), message: "You can't teach new tricks to an old dog.", from: "J.J. Ventre")
+    var url = "https://goood-vibes.herokuapp.com"
     @Published var newVibe: [String: String] = ["message": "Placeholder", "from": "Placeholder"]
     
     init() {
@@ -109,10 +110,9 @@ class Vibes: ObservableObject {
         }
         print("Enough time has passed, continuing.")
                 
-        //check interval here
         let decoder = JSONDecoder()
-        var urlComponents = URLComponents(string: "http://127.0.0.1")!
-        urlComponents.port = 8080
+        var urlComponents = URLComponents(string: url)!
+//        urlComponents.port = 8080
         urlComponents.path = "/vibes/all"
         
         do {
@@ -144,7 +144,7 @@ class Vibes: ObservableObject {
         print("Uploading a vibe")
         print(newVibe)
         let encoder = JSONEncoder()
-        var urlComponents = URLComponents(string: "http://127.0.0.1")!
+        var urlComponents = URLComponents(string: url)!
         urlComponents.port = 8080
         urlComponents.path = "/vibes"
         do {
@@ -157,6 +157,7 @@ class Vibes: ObservableObject {
             
             let (_, response) = try await URLSession.shared.data(for: updateRequest)
             print(response)
+            
         } catch {
             print(error)
             return

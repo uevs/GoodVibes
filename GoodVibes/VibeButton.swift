@@ -68,6 +68,7 @@ struct ModalButton: UIViewRepresentable {
             uiView.window?.rootViewController?.present(presentedViewController, animated: true)
 
             send(presentedViewController: presentedViewController)
+            
         } else {
             uiView.window?.rootViewController?.dismiss(animated: true, completion: nil)
         }
@@ -76,8 +77,8 @@ struct ModalButton: UIViewRepresentable {
     func send(presentedViewController: ViewController) {
         
         var contents = ["message": "Test", "from": "Test"]
-        contents["message"] = presentedViewController.textView.text.description
-        contents["from"] = presentedViewController.textField.text?.description
+        contents["message"] = presentedViewController.textView.text
+        contents["from"] = presentedViewController.textField.text
         
         let action = UIAction { _ in
             if contents != ["message": "", "from": ""] {
