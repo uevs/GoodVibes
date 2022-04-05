@@ -1,7 +1,7 @@
 
 # Good Vibes
 <p align="center">
-<img width="500" alt="vibes" src="https://user-images.githubusercontent.com/36189306/161721577-759aff52-f1e8-4c8a-a0cc-13800f05c345.png">
+<img width="500" alt="vibes" src="https://user-images.githubusercontent.com/36189306/161736037-518a1f20-7ce7-482d-baa9-31ff0d62067b.png">
 </p>
 
 
