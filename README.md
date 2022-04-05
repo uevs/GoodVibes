@@ -60,4 +60,6 @@ These are all the steps I needed to take:
 
 It's been a long process, but I'm amazed by how many things I could learn and achieve in just two weeks. 
 
+## Share your good vibes!
+
 The app is now [on TestFlight](https://testflight.apple.com/join/oDaC4Crc), fully functioning. Give it a try and send your good vibe to everyone!
