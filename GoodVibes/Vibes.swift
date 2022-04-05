@@ -145,7 +145,7 @@ class Vibes: ObservableObject {
         print(newVibe)
         let encoder = JSONEncoder()
         var urlComponents = URLComponents(string: url)!
-        urlComponents.port = 8080
+//        urlComponents.port = 8080
         urlComponents.path = "/vibes"
         do {
             let newVibe = try encoder.encode(newVibe)
@@ -154,6 +154,7 @@ class Vibes: ObservableObject {
             updateRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             updateRequest.setValue("application/json", forHTTPHeaderField: "Accept")
             updateRequest.httpBody = newVibe
+//            vibesDB.append(Vibe(id: UUID(), message: newVibe["message"], from: newVibe["from"]))
             
             let (_, response) = try await URLSession.shared.data(for: updateRequest)
             print(response)
