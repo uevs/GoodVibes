@@ -103,7 +103,7 @@ class Vibes: ObservableObject {
         if let lastUpdate = UserDefaults.standard.object(forKey: "lastUpdate") as? Date {
             print("Last Update was \(lastUpdate), now is \(Date())")
             
-            if let difference = Calendar.current.dateComponents([.minute], from: lastUpdate, to: Date()).minute, difference < 5 {
+            if let difference = Calendar.current.dateComponents([.minute], from: lastUpdate, to: Date()).minute, difference < 1 {
                 print("Only \(difference) minutes have been passing, not updating.")
                 return
             }
