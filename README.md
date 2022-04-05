@@ -1,5 +1,5 @@
 
-# Good Vibes
+# Good Vibes - Frontend
 <p align="center">
 <img width="500" alt="vibes" src="https://user-images.githubusercontent.com/36189306/161736037-518a1f20-7ce7-482d-baa9-31ff0d62067b.png">
 </p>
