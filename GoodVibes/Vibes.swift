@@ -154,10 +154,10 @@ class Vibes: ObservableObject {
             updateRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             updateRequest.setValue("application/json", forHTTPHeaderField: "Accept")
             updateRequest.httpBody = newVibe
-//            vibesDB.append(Vibe(id: UUID(), message: newVibe["message"], from: newVibe["from"]))
             
             let (_, response) = try await URLSession.shared.data(for: updateRequest)
             print(response)
+            vibesDB.append(Vibe(id: UUID(), message: self.newVibe["message"]!, from: self.newVibe["from"]!))
             
         } catch {
             print(error)
