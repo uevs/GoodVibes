@@ -31,7 +31,7 @@ The app connects to my Vapor web-app currently hosted on Heroku.
 <img width="750" alt="vibes" src="https://user-images.githubusercontent.com/36189306/161719767-442203de-7216-4b61-83c2-f63734bb8fc6.png">
 </p>
 
-The design aims to be minimal and with references to vaporwave aestethic, a style associated with relax and good mood, it's also a play on the name of the framework I used for the backend.
+The design aims to be minimal and with references to vaporwave aesthetic, a style associated with relax and good mood, it's also a play on the name of the framework I used for the backend.
 
 The app has been built entirely in SwiftUI, with the exception of the half-modal view which uses and UIKit element.
 
@@ -43,7 +43,7 @@ https://user-images.githubusercontent.com/36189306/161719580-ea414789-f7f2-44fd-
 
 ## The process
 
-This app was built with multiple goals in mind: strenghtening my SwiftUI skills, learning more about UIKit, learning about networking in Swift. Since I had previously built a web-app with Vapor, I wanted to make things real and connect it with iOS app, the make a complete full-stack experience.
+This app was built with multiple goals in mind: strengthening my SwiftUI skills, learning more about UIKit, learning about networking in Swift. Since I had previously built a web-app with Vapor, I wanted to make things real and connect it with iOS app, the make a complete full-stack experience.
 
 These are all the steps I needed to take:
 
